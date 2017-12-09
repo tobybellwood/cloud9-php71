@@ -15,22 +15,7 @@ sudo a2enmod php7.1
 
 sudo service apache2 restart
 
-# Install MySQL
+# Update MySQL to v5.6 - erases everything
 
-sudo debconf-set-selections <<< "mysql-server mysql-server/root_password password secret"
-sudo debconf-set-selections <<< "mysql-server mysql-server/root_password_again password secret"
-sudo apt-get install -y mysql-server
-
-mysql --user="root" -e "GRANT ALL ON *.* TO root@'0.0.0.0' IDENTIFIED BY 'secret' WITH GRANT OPTION;"
+sudo apt-get install mysql-server-5.6 -y
 sudo service mysql restart
-
-mysql --user="root" -e "CREATE USER 'homestead'@'0.0.0.0' IDENTIFIED BY 'secret';"
-mysql --user="root" -e "GRANT ALL ON *.* TO 'homestead'@'0.0.0.0' IDENTIFIED BY 'secret' WITH GRANT OPTION;"
-mysql --user="root" -e "GRANT ALL ON *.* TO 'homestead'@'%' IDENTIFIED BY 'secret' WITH GRANT OPTION;"
-mysql --user="root" -e "FLUSH PRIVILEGES;"
-mysql --user="root" -e "CREATE DATABASE homestead character set UTF8mb4 collate utf8mb4_bin;"
-sudo service mysql restart
-
-# Add Timezone Support To MySQL
-
-sudo mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql --user=root mysql
