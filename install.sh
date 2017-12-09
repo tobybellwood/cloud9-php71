@@ -8,6 +8,8 @@ sudo apt-get remove libapache2-mod-php5 -y
 sudo apt-get install libapache2-mod-php7.1 -y
 sudo cp /etc/apache2/envvars.bak /etc/apache2/envvars
 
+sudo apt-get autoremove
+
 sudo a2dismod php5
 sudo a2enmod php7.1
 
